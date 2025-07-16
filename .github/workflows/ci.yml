@@ -1,10 +1,18 @@
+name: CI Pipeline on Node Matrix
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16, 18]
+        node-version: [18, 20]
 
     name: Node.js ${{ matrix.node-version }} CI
 
@@ -31,7 +39,6 @@ jobs:
 
       - name: Done
         run: echo "✅ CI for Node ${{ matrix.node-version }} passed!"
-
 
 
 # name: CI Pipeline with Linting
