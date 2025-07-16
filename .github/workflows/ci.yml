@@ -1,4 +1,4 @@
-name: CI for HTML Demo Project
+name: CI Pipeline with Linting
 
 on:
   push:
@@ -18,11 +18,14 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install project (dummy)
+      - name: Install dependencies
         run: npm install
+
+      - name: Run Lint
+        run: npm run lint
 
       - name: Run Build
         run: npm run build
 
-      - name: Success Message
-        run: echo "✅ Build successful for HTML demo!"
+      - name: Success
+        run: echo "✅ Lint + Build passed!"
