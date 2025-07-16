@@ -9,7 +9,7 @@ jobs:
     name: Node.js ${{ matrix.node-version }} CI
 
     steps:
-      - name: Checkout code
+      - name: Fetch source code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
