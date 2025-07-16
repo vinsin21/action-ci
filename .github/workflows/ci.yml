@@ -1,13 +1,12 @@
-name: CI Pipeline with Linting
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16, 18]
+
+    name: Node.js ${{ matrix.node-version }} CI
 
     steps:
       - name: Checkout code
@@ -16,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: npm install
@@ -24,15 +23,52 @@ jobs:
       - name: Run Lint
         run: npm run lint
 
-      - name: Run Lint
-        run: npm run lint
-
       - name: Run Unit Tests
         run: npm run test
-
 
       - name: Run Build
         run: npm run build
 
-      - name: Success
-        run: echo "✅ Lint + Build passed!"
+      - name: Done
+        run: echo "✅ CI for Node ${{ matrix.node-version }} passed!"
+
+
+
+# name: CI Pipeline with Linting
+
+# on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 18
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Run Lint
+#         run: npm run lint
+
+#       - name: Run Lint
+#         run: npm run lint
+
+#       - name: Run Unit Tests
+#         run: npm run test
+
+
+#       - name: Run Build
+#         run: npm run build
+
+#       - name: Success
+#         run: echo "✅ Lint + Build passed!"
