@@ -1,44 +1,74 @@
-name: CI Pipeline on Node Matrix
+name: Self-Hosted Matrix Node Test
 
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
-  build:
+  test:
     runs-on: self-hosted
 
     strategy:
       matrix:
-        node-version: [18]
-
-    name: Node.js ${{ matrix.node-version }} CI
+        node-version: [18, 20]
 
     steps:
-      - name: Fetch source code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
+      - name: Print Node Version
+        run: node -v
 
-      - name: Run Lint
-        run: npm run lint
 
-      - name: Run Unit Tests
-        run: npm run test
 
-      - name: Run Build
-        run: npm run build
 
-      - name: Done
-        run: echo "✅ CI for Node ${{ matrix.node-version }} passed!"
+
+# name: CI Pipeline on Node Matrix
+
+# on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
+
+# jobs:
+#   build:
+#     runs-on: self-hosted
+
+#     strategy:
+#       matrix:
+#         node-version: [18]
+
+#     name: Node.js ${{ matrix.node-version }} CI
+
+#     steps:
+#       - name: Fetch source code
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: ${{ matrix.node-version }}
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Run Lint
+#         run: npm run lint
+
+#       - name: Run Unit Tests
+#         run: npm run test
+
+#       - name: Run Build
+#         run: npm run build
+
+#       - name: Done
+#         run: echo "✅ CI for Node ${{ matrix.node-version }} passed!"
 
 
 # name: CI Pipeline with Linting
