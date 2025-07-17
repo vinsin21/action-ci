@@ -1,4 +1,4 @@
-name: Node.js Matrix Test
+name: Node.js Self Hosted Matrix test
 
 on:
   push:
